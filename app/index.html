@@ -28,13 +28,31 @@
                 }
             }
 
-            const xScale = linearMapping([0 ,100], [0, width]);
-            const yScale = linearMapping([-1,1], [height, 0]);
+            // Canvas margin 
+            const margin = {
+                l: 30,
+                t: 30,
+                r: 30,
+                b: 30,
+            }   
+
+            // x-axis
+            context.beginPath();
+            context.moveTo(0,10);
+            context.lineTo(width, 10);
+            context.stroke();
+
+            // Signal
+            const l = margin.l;
+            const r = width - margin.r;
+            const t = margin.t;
+            const b = height-margin.b;
+            const xScale = linearMapping([0 ,100], [l, r]);
+            const yScale = linearMapping([-1,1], [b, t]);
 
             const fs = 1000;
             const fc = 50;
             const n  = 100;
-
             context.lineCap  = 'round';  
             context.lineJoin = 'round';
             context.beginPath();
