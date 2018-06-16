@@ -7,9 +7,12 @@
             <header id="header">
                 <h1 class="title"> Chart </h1>
             </header>
-            <section id="chart">
-                <canvas height="300" width="1000"></canvas>
-            </section>
+            <div id="main" style="width: 100%; height: 400px;">
+                <div id="chart" style="height:300px; width: 700px;">
+                    <canvas height="300" width="700"></canvas>
+                    <canvas height="300" width="700"></canvas>
+                </div>
+            </div>
         </div>
 
         <script>
@@ -63,7 +66,7 @@
             ctx.stroke();
 
             // x-axis labels
-            ctx.font = '1rem Consolas';
+            ctx.font = '0.75rem Consolas';
             const xlabels = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
             xlabels.forEach( l => { 
                 ctx.fillText(`${l}`, xScale(l), height-margin.b+16);        
@@ -77,7 +80,7 @@
             ctx.stroke();
 
             // x-axis labels
-            ctx.font = '1rem Consolas';
+            ctx.font = '0.75rem Consolas';
             const ylabels = [-1, 0, 1];
             ylabels.forEach( l => { 
                 ctx.fillText(`${l}`, 8, yScale(l)+1);        
