@@ -8,14 +8,15 @@
                 <h1 class="title"> Chart </h1>
             </header>
             <section id="chart">
-                <canvas height="500" width="900"></canvas>
+                <canvas height="300" width="1000"></canvas>
             </section>
         </div>
 
         <script>
+
             const canvas = document.querySelector('canvas')
             const {height, width} = canvas;
-            const context = canvas.getContext('2d');
+            const ctx = canvas.getContext('2d');
 
             function linearMapping(domain, range) {
                 const [x0, x1] = domain;
@@ -36,13 +37,6 @@
                 b: 30,
             }   
 
-            // x-axis
-            context.beginPath();
-            context.moveTo(0,10);
-            context.lineTo(width, 10);
-            context.stroke();
-
-            // Signal
             const l = margin.l;
             const r = width - margin.r;
             const t = margin.t;
@@ -50,19 +44,43 @@
             const xScale = linearMapping([0 ,100], [l, r]);
             const yScale = linearMapping([-1,1], [b, t]);
 
+
+            // x-axis
+            ctx.beginPath();
+            ctx.lineWidth=1;            
+            ctx.moveTo(margin.l,height-margin.b);
+            ctx.lineTo(width, height-margin.b);
+            ctx.stroke();
+
+            // x-axis labels
+            ctx.font = '1rem Consolas';
+            ctx.fillText('0', margin.l, height-margin.b+16);            
+            ctx.fillText('10', margin.l+50, height-margin.b+16);  
+            // y-axis
+            ctx.beginPath();
+            ctx.lineWidth=1;              
+            ctx.moveTo(margin.l,margin.t);
+            ctx.lineTo(margin.l, height-margin.b);
+            ctx.stroke();
+
+            // signal
             const fs = 1000;
             const fc = 50;
             const n  = 100;
-            context.lineCap  = 'round';  
-            context.lineJoin = 'round';
-            context.beginPath();
-            context.moveTo(xScale(0), yScale(0));
+            ctx.lineCap  = 'round';  
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = 'teal';
+            ctx.lineWidth=2;
+            
+            
+            ctx.beginPath();
+            ctx.moveTo(xScale(0), yScale(0));
             for (let i=1; i < n; i++) {
                 const x = i;
                 const y = Math.sin(2 * Math.PI * (fc / fs) * i);
-                context.lineTo(xScale(x), yScale(y));  
+                ctx.lineTo(xScale(x), yScale(y));  
             }
-            context.stroke();            
+            ctx.stroke();            
         </script>
     </body>
 </html>
