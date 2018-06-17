@@ -40,19 +40,35 @@
             canvas.height = 300 - margin.t - margin.b;
             canvas.width  = 700 - margin.l - margin.r;
             canvas.style  = `top: ${margin.t}; left: ${margin.l}`;
-            
+
             const {height, width} = canvas;
             const ctx = canvas.getContext('2d');
 
-            function linearMapping(domain, range) {
-                const [x0, x1] = domain;
-                const [y0, y1] = range;
-                return function(x) {
+            function linearMapping() {
+
+                let _domain = [];
+                let _range  = [];
+
+                function scale(x) {
+                    const [x0, x1] = _domain;
+                    const [y0, y1] = _range;
                     const m = (y1 - y0) / (x1 - x0);
                     const b = y0 - m*x0;
                     const y = m * x + b;
                     return y;
                 }
+
+                scale.domain = function(domain) {
+                    _domain = domain;
+                    return scale;
+                };
+
+                scale.range = function(range) {
+                    _range = range;
+                    return scale;
+                }
+
+                return scale;
             }
 
   
@@ -61,8 +77,8 @@
             const r = width - margin.r;
             const t = margin.t;
             const b = height-margin.b;
-            const xScale = linearMapping([0 ,100], [l, r]);
-            const yScale = linearMapping([-1,1], [b, t]);
+            const xScale = linearMapping().domain([0 ,100]).range([l, r]);
+            const yScale = linearMapping().domain([-1,1]).range([b, t]);
 
 
             // signal
