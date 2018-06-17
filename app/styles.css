@@ -26,7 +26,6 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 canvas {
-    border: 1px solid #333; 
     position: absolute;
     top: 0;
     left: 0;
@@ -60,10 +59,14 @@ body {
 
 #main {
     display: flex;
-    justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 #chart {
     position: relative;
+}
+
+#axes {
+    border: 1px solid red;
 }
