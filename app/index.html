@@ -1,6 +1,8 @@
 <html>
     <head>
         <link href="styles.css" rel="stylesheet">
+        <script src="polyfills.js"></script>
+        <script src="graphing.js"></script>
     </head>
     <body>
         <div id="app">
@@ -18,15 +20,9 @@
 
         <script>
 
-            Array.prototype.downSample = function(n) {
-                const out = [];
-                for (let i=0; i< this.length; i++) {
-                    if (i % n === 0) {
-                        out.push(this[i]);
-                    }
-                }
-                return out;
-            };
+            //import {linearMapping} from './graphing.js';
+
+
 
             // Canvas margin 
             const margin = {
@@ -44,32 +40,6 @@
             const {height, width} = canvas;
             const ctx = canvas.getContext('2d');
 
-            function linearMapping() {
-
-                let _domain = [];
-                let _range  = [];
-
-                function scale(x) {
-                    const [x0, x1] = _domain;
-                    const [y0, y1] = _range;
-                    const m = (y1 - y0) / (x1 - x0);
-                    const b = y0 - m*x0;
-                    const y = m * x + b;
-                    return y;
-                }
-
-                scale.domain = function(domain) {
-                    _domain = domain;
-                    return scale;
-                };
-
-                scale.range = function(range) {
-                    _range = range;
-                    return scale;
-                }
-
-                return scale;
-            }
 
   
 
@@ -77,8 +47,8 @@
             const r = width - margin.r;
             const t = margin.t;
             const b = height-margin.b;
-            const xScale = linearMapping().domain([0 ,100]).range([l, r]);
-            const yScale = linearMapping().domain([-1,1]).range([b, t]);
+            const xScale = graphing.linearMapping().domain([0 ,100]).range([l, r]);
+            const yScale = graphing.linearMapping().domain([-1,1]).range([b, t]);
 
 
             // signal
