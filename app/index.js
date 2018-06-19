@@ -1,5 +1,5 @@
+import { linearMapping } from './graphing.js';
 
-const {linearMapping} = graphing;
 
 // Canvas margin 
 const margin = {

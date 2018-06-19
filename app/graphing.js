@@ -1,5 +1,5 @@
 
-const graphing = (function() {
+//const graphing = (function() {
     function linearMapping() {
 
         let _domain = [];
@@ -26,10 +26,12 @@ const graphing = (function() {
         
         return scale;
     }
-    return {
-        linearMapping
-    }
-})()
+//    return {
+//        linearMapping
+//    }
+//})()
+
+export { linearMapping }
 
 
 

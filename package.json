@@ -4,12 +4,16 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "run": "electron main.js",
+    "run": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
+  "dependencies": {
+    "d3": "^5.5.0"
+  },
   "devDependencies": {
-    "electron": "^2.0.2"
+    "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.8"
   }
 }
