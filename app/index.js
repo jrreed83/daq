@@ -1,6 +1,6 @@
 import './styles.css';
 import { linearMapping } from './graphing.js';
-
+import './styles.css';
 
 // Canvas margin 
 const margin = {
