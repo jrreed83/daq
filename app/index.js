@@ -1,6 +1,6 @@
 import './styles.css';
 import { linearMapping } from './graphing.js';
-import './styles.css';
+import * as d3 from 'd3';
 
 // Canvas margin 
 const margin = {
@@ -25,8 +25,9 @@ const l = margin.l;
 const r = width - margin.r;
 const t = margin.t;
 const b = height-margin.b;
-const xScale = linearMapping().domain([0 ,100]).range([l, r]);
-const yScale = linearMapping().domain([-1,1]).range([b, t]);
+
+const xScale = d3.scaleLinear().domain([0, 100]).range([l, r]);
+const yScale = d3.scaleLinear().domain([-1, 1]).range([b, t]);
 
 
 // signal
