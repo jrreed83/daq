@@ -36,6 +36,19 @@ html {
     height: 100%;
 }
 
+.x.axis {
+    font-family: "Open Sans";
+}
+
+.y.axis {
+    font-family: "Open Sans";
+}
+
+.line {
+    fill: none;
+    stroke: teal;
+}
+
 body {
     height: 100%;
     margin: 0;
@@ -62,6 +75,7 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin: 1rem;
 }
 
 #chart {
