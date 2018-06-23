@@ -1,6 +1,15 @@
 import './styles.css';
 import * as d3 from 'd3';
 
+const data = [];
+const fs = 1000;
+const fc = 50;
+for (let i = 0; i < 100; i++) {
+    data.push([
+        i, Math.sin(2 * Math.PI * (fc / fs) * i)    
+    ])
+}
+
 // Canvas margin 
 const margin = {
     l: 30,
@@ -9,7 +18,7 @@ const margin = {
     b: 30,
 };          
 
-function chart1() {
+function chart1(data) {
     const chart  = document.getElementById('chart1');
     const height = chart.clientHeight;
     const width  = chart.clientWidth;
@@ -28,6 +37,9 @@ function chart1() {
         .x(d => xScale(d[0]))
         .y(d => yScale(d[1]));
 
+    const svg = chart.querySelector('svg');
+    svg.setAttribute('height', `${height}`);
+    svg.setAttribute('width', `${width}`);
 
     d3.select(chart.querySelector('.x.axis'))
         .attr('transform', `translate(${margin.l},${height-margin.b})`)
@@ -37,24 +49,21 @@ function chart1() {
         .attr('transform', `translate(${margin.l},${margin.t})`)
         .call(yAxis);
 
-    const data = [];
-    const fs = 1000;
-    const fc = 50;
-    for (let i = 0; i < 100; i++) {
-        data.push([
-            i, Math.sin(2 * Math.PI * (fc / fs) * i)    
-        ])
-    }
+
         
     const el = chart.querySelector('.line');
     el.setAttribute('d', line(data));
     el.setAttribute('transform', `translate(${margin.l},${margin.t})`);        
 }
 
-function chart2() {
+function chart2(data) {
     const chart  = document.getElementById('chart2');
     const height = chart.clientHeight;
     const width  = chart.clientWidth;
+
+    const svg = chart.querySelector('svg');
+    svg.setAttribute('height', `${height}`);
+    svg.setAttribute('width', `${width}`);
 
     const canvas  = chart.querySelector('canvas');
     canvas.height = height - margin.t - margin.b;
@@ -86,28 +95,24 @@ function chart2() {
         .call(yAxis);
 
     // signal
-    const fs = 1000;
-    const fc = 50;
-    const n  = 100;
     ctx.lineCap  = 'round';  
     ctx.lineJoin = 'round';
     ctx.strokeStyle = 'teal';
-    ctx.lineWidth=1;
+    ctx.lineWidth = 1;
            
-           
+    let [x,y] = data[0];   
     ctx.beginPath();
-    ctx.moveTo(xScale(0), yScale(0));
-    for (let i=1; i < n; i++) {
-        const x = i;
-        const y = Math.sin(2 * Math.PI * (fc / fs) * i);
-        ctx.lineTo(xScale(x), yScale(y));  
+    ctx.moveTo(xScale( x ), yScale( y ));
+    for (let i=1; i < data.length; i++) {
+        [x, y] = data[i];
+        ctx.lineTo(xScale( x ), yScale( y ));  
     }
     ctx.stroke();         
 }
 
-chart1();
+chart1( data );
 
-chart2();
+chart2( data );
 
 
 
