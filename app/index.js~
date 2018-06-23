@@ -29,11 +29,11 @@ function chart1() {
         .y(d => yScale(d[1]));
 
 
-    d3.select(chart.querySelector('.x.axis'))
+    d3.select('.x.axis')
         .attr('transform', `translate(${margin.l},${height-margin.b})`)
         .call(xAxis);
 
-    d3.select(chart.querySelector('.y.axis'))
+    d3.select('.y.axis')
         .attr('transform', `translate(${margin.l},${margin.t})`)
         .call(yAxis);
 
@@ -46,7 +46,7 @@ function chart1() {
         ])
     }
         
-    const el = chart.querySelector('.line');
+    const el = document.querySelector('.line');
     el.setAttribute('d', line(data));
     el.setAttribute('transform', `translate(${margin.l},${margin.t})`);        
 }
@@ -56,7 +56,7 @@ function chart2() {
     const height = chart.clientHeight;
     const width  = chart.clientWidth;
 
-    const canvas  = chart.querySelector('canvas');
+    const canvas  = document.querySelector('canvas');
     canvas.height = height - margin.t - margin.b;
     canvas.width  = width - margin.l - margin.r;
     canvas.style.top  = `${margin.t}px`, 
@@ -77,11 +77,12 @@ function chart2() {
         .x(d => xScale(d[0]))
         .y(d => yScale(d[1]));
 
-    d3.select(chart.querySelector('.x.axis'))
+
+    d3.select('.x.axis')
         .attr('transform', `translate(${margin.l},${height-margin.b})`)
         .call(xAxis);
 
-    d3.select(chart.querySelector('.y.axis'))
+    d3.select('.y.axis')
         .attr('transform', `translate(${margin.l},${margin.t})`)
         .call(yAxis);
 
