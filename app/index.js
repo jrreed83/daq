@@ -49,8 +49,6 @@ function chart1(data) {
         .attr('transform', `translate(${margin.l},${margin.t})`)
         .call(yAxis);
 
-
-        
     const el = chart.querySelector('.line');
     el.setAttribute('d', line(data));
     el.setAttribute('transform', `translate(${margin.l},${margin.t})`);        
