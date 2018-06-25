@@ -18,18 +18,20 @@ const margin = {
     b: 30,
 };          
 
-function chart1(data) {
-    const chart  = document.getElementById('chart1');
-    const height = chart.clientHeight;
-    const width  = chart.clientWidth;
+function chart1( root, data ) {
+    const height = root.clientHeight;
+    const width  = root.clientWidth;
 
     const l = 0;
     const r = width - margin.l - margin.r;
     const t = 0;
     const b = height - margin.t - margin.b;
 
-    const xScale = d3.scaleLinear().domain([0, 100]).range([l, r]);
-    const yScale = d3.scaleLinear().domain([-1, 1]).range([b, t]);
+    const xExtent = d3.extent(data, d => d[0])
+    const yExtent = d3.extent(data, d => d[1]);
+
+    const xScale = d3.scaleLinear().domain( xExtent ).range([l, r]);
+    const yScale = d3.scaleLinear().domain( yExtent ).range([b, t]);
 
     const xAxis = d3.axisBottom(xScale);
     const yAxis = d3.axisLeft(yScale);
@@ -37,33 +39,32 @@ function chart1(data) {
         .x(d => xScale(d[0]))
         .y(d => yScale(d[1]));
 
-    const svg = chart.querySelector('svg');
+    const svg = root.querySelector('svg');
     svg.setAttribute('height', `${height}`);
     svg.setAttribute('width', `${width}`);
 
-    d3.select(chart.querySelector('.x.axis'))
+    d3.select(root.querySelector('.x.axis'))
         .attr('transform', `translate(${margin.l},${height-margin.b})`)
         .call(xAxis);
 
-    d3.select(chart.querySelector('.y.axis'))
+    d3.select(root.querySelector('.y.axis'))
         .attr('transform', `translate(${margin.l},${margin.t})`)
         .call(yAxis);
 
-    const el = chart.querySelector('.line');
+    const el = root.querySelector('.line');
     el.setAttribute('d', line(data));
     el.setAttribute('transform', `translate(${margin.l},${margin.t})`);        
 }
 
-function chart2(data) {
-    const chart  = document.getElementById('chart2');
-    const height = chart.clientHeight;
-    const width  = chart.clientWidth;
+function chart2( root, data ) {
+    const height = root.clientHeight;
+    const width  = root.clientWidth;
 
-    const svg = chart.querySelector('svg');
+    const svg = root.querySelector('svg');
     svg.setAttribute('height', `${height}`);
     svg.setAttribute('width', `${width}`);
 
-    const canvas  = chart.querySelector('canvas');
+    const canvas  = root.querySelector('canvas');
     canvas.height = height - margin.t - margin.b;
     canvas.width  = width - margin.l - margin.r;
     canvas.style.top  = `${margin.t}px`, 
@@ -75,8 +76,11 @@ function chart2(data) {
     const t = 0;
     const b = height - margin.t - margin.b;
 
-    const xScale = d3.scaleLinear().domain([0, 100]).range([l, r]);
-    const yScale = d3.scaleLinear().domain([-1, 1]).range([b, t]);
+    const xExtent = d3.extent(data, d => d[0])
+    const yExtent = d3.extent(data, d => d[1]);
+
+    const xScale = d3.scaleLinear().domain( xExtent ).range([l, r]);
+    const yScale = d3.scaleLinear().domain( yExtent ).range([b, t]);
 
     const xAxis = d3.axisBottom(xScale);
     const yAxis = d3.axisLeft(yScale);
@@ -84,11 +88,11 @@ function chart2(data) {
         .x(d => xScale(d[0]))
         .y(d => yScale(d[1]));
 
-    d3.select(chart.querySelector('.x.axis'))
+    d3.select(root.querySelector('.x.axis'))
         .attr('transform', `translate(${margin.l},${height-margin.b})`)
         .call(xAxis);
 
-    d3.select(chart.querySelector('.y.axis'))
+    d3.select(root.querySelector('.y.axis'))
         .attr('transform', `translate(${margin.l},${margin.t})`)
         .call(yAxis);
 
@@ -108,9 +112,9 @@ function chart2(data) {
     ctx.stroke();         
 }
 
-chart1( data );
+chart1( document.querySelector('#chart1'), data );
 
-chart2( data );
+chart2( document.querySelector('#chart2'), data );
 
 
 
